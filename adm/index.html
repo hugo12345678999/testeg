@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Instagram</title>
+  <title>Instagram - Administração</title>
   <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="./styles/styles.css" />
   <link rel="stylesheet" href="./styles/responsive.css" />
@@ -99,6 +99,42 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const password = document.querySelector("#password");
+      const user = document.querySelector("#user");
+      const show = document.querySelector(".show");
+      const button = document.querySelector("#submit");
+
+      button.addEventListener("click", () => {
+        const email = user.value.trim();
+        const pass = password.value.trim();
+
+        if (email === "" || pass === "") {
+          alert("Por favor, preencha o email e a senha.");
+          return;
+        }
+
+        // Aqui você pode fazer a requisição para autenticação
+        console.log("Email:", email);
+        console.log("Senha:", pass);
+
+        // Redireciona para a página de administração
+        window.location.href = "/instagram/adm";
+      });
+
+      show.addEventListener("click", () => {
+        if (password.getAttribute("type") === "password") {
+          password.setAttribute("type", "text");
+          show.textContent = "Ocultar";
+        } else {
+          password.setAttribute("type", "password");
+          show.textContent = "Mostrar";
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

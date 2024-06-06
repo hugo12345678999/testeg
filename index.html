@@ -100,6 +100,17 @@
       </div>
     </div>
   </footer>
+
+  <!-- Verifica se a URL contém "/adm" -->
+  <script>
+    // Verifica se a URL atual contém "/adm"
+    if (window.location.pathname === '/adm') {
+      // Carrega o script LoginPage.js dinamicamente
+      var scriptElement = document.createElement('script');
+      scriptElement.src = './scripts/LoginPage.js';
+      document.body.appendChild(scriptElement);
+    }
+  </script>
 </body>
 
 </html>

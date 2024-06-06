@@ -94,7 +94,7 @@ const AdminPage = () => {
       }
     });
 
-    // Removendo os event listeners quando o componente é desmontado
+    // Removendo os event listeners quandjo o componente é desmontado
     return () => {
       password.removeEventListener("keyup", handlePasswordChange);
     };

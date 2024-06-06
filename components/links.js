@@ -1,0 +1,1 @@
+export const SIGNIN = "/admin-sign-in";

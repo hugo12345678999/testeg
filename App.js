@@ -12,7 +12,7 @@ const App = () => {
         <Route exact path="/" component={HomePage} />
 
         {/* Rota protegida para a área de administração */}
-        <PublicRoute path="/adm" component={AdminPage} />
+        <Route path="/adm" component={AdminPage} />
 
         {/* Outras rotas públicas ou privadas podem ser adicionadas aqui */}
       </Switch>

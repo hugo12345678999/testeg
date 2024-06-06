@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
-import AdminPage from './components/AdminPage';
+import ConfigSignIn from './components/AdminPage';
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
         <Route exact path="/adm/login" component={HomePage} />
 
         {/* Rota para a área de administração */}
-        <Route exact path="/adm" component={AdminPage} />
+        <Route exact path="/adm" component={ConfigSignIn} />
 
         {/* Outras rotas públicas ou privadas podem ser adicionadas aqui */}
       </Switch>

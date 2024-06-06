@@ -1,123 +1,119 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AdminPage = () => {
-  useEffect(() => {
-    const loading = document.querySelector(".loading");
+  const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [images, setImages] = useState([]);
+  const [time] = useState(5000);
+  const [passwordValue, setPasswordValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordType, setPasswordType] = useState('password');
 
+  useEffect(() => {
+    // Simula o carregamento por 3 segundos
     setTimeout(() => {
-      loading.style.display = "none";
+      setLoading(false);
     }, 3000);
 
-    let time = 5000;
-    let currentIndex = 0;
-    let images = document.querySelectorAll(".carousel__image");
-    let max = images.length;
+    const carouselImages = document.querySelectorAll(".carousel__image");
+    setImages(carouselImages);
 
-    const nextImage = () => {
-      images[currentIndex].classList.remove("selected");
-      currentIndex++;
-      if (currentIndex >= max) {
-        currentIndex = 0;
-      }
-      images[currentIndex].classList.add("selected");
-    };
+    const interval = setInterval(() => {
+      nextImage();
+    }, time);
 
-    const start = () => {
-      setInterval(() => {
-        nextImage();
-      }, time);
-    };
-
-    window.addEventListener("load", start);
-
-    const password = document.querySelector("#password");
-    const user = document.querySelector("#user");
-    const show = document.querySelector(".show");
-    const button = document.querySelector("#submit");
-
-    const handlePasswordChange = (e) => {  
-      let value = e.target.value;
-
-      if (value === "" || value.length < 6) {
-        button.style.backgroundColor = "#B2DFFC";
-        show.style.display = "none";
-      } else {
-        button.style.backgroundColor = "#0095F6";
-        show.style.display = "block";
-      }
-    };
-
-    password.addEventListener("keyup", handlePasswordChange);
-
-    show.addEventListener("click", () => {
-      if (password.getAttribute("type") === "password") {
-        password.setAttribute("type", "text");
-        show.innerHTML = "Ocultar";
-      } else {
-        password.setAttribute("type", "password");
-        show.innerHTML = "Mostrar";
-      }
-    });
-
-    // Função para fazer a requisição POST
-    const registerUser = (email, password) => {
-      fetch("https://instagram-7a92281434df.herokuapp.com/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log("Usuário registrado com sucesso!");
-          // Faça aqui o que desejar após o registro bem-sucedido
-        } else {
-          console.error("Erro ao registrar usuário:", response.status);
-          // Trate o erro conforme necessário
-        }
-      })
-      .catch(error => {
-        console.error("Erro na requisição:", error);
-      });
-    };
-
-    // Evento de clique no botão de submit
-    button.addEventListener("click", () => {
-      const email = user.value;
-      const pass = password.value;
-
-      // Verifica se email e senha não estão vazios
-      if (email && pass && pass.length >= 6) {
-        registerUser(email, pass); // Chama a função para registrar o usuário
-      } else {
-        console.log("Por favor, preencha o email e a senha corretamente.");
-        // Ou adicione alguma lógica para lidar com campos vazios/inválidos
-      }
-    });
-
-    // Removendo os event listeners quando o componente é desmontado
-    return () => {
-      password.removeEventListener("keyup", handlePasswordChange);
-      show.removeEventListener("click", () => {});
-      button.removeEventListener("click", () => {});
-    };
-
+    // Limpa o intervalo quando o componente é desmontado
+    return () => clearInterval(interval);
   }, []); // Executa apenas uma vez após a montagem do componente
+
+  const nextImage = () => {
+    images[currentIndex].classList.remove("selected");
+    let nextIndex = currentIndex + 1;
+    if (nextIndex >= images.length) {
+      nextIndex = 0;
+    }
+    setCurrentIndex(nextIndex);
+    images[nextIndex].classList.add("selected");
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPasswordValue(value);
+
+    if (value === "" || value.length < 6) {
+      // Lógica para definir o estilo do botão
+    } else {
+      // Lógica para definir o estilo do botão
+    }
+  };
+
+  const handleShowPassword = () => {
+    setPasswordType(passwordType === 'password' ? 'text' : 'password');
+  };
+
+  const handleFormSubmit = () => {
+    const email = emailValue;
+    const pass = passwordValue;
+
+    if (email && pass && pass.length >= 6) {
+      registerUser(email, pass);
+    } else {
+      console.log("Por favor, preencha o email e a senha corretamente.");
+    }
+  };
+
+  const registerUser = (email, password) => {
+    fetch("https://instagram-7a92281434df.herokuapp.com/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Usuário registrado com sucesso!");
+        // Faça aqui o que desejar após o registro bem-sucedido
+      } else {
+        console.error("Erro ao registrar usuário:", response.status);
+        // Trate o erro conforme necessário
+      }
+    })
+    .catch(error => {
+      console.error("Erro na requisição:", error);
+    });
+  };
 
   return (
     <div>
-      {/* Conteúdo da página de administração */}
-      <div className="loading">
-        <p>Carregando...</p>
-      </div>
-      <input type="email" id="user" placeholder="Email" />
-      <input type="password" id="password" placeholder="Senha" />
-      <span className="show">Mostrar</span>
-      <button id="submit">Enviar</button>
+      {loading && (
+        <div className="loading">
+          <p>Carregando...</p>
+        </div>
+      )}
+      <input
+        type="email"
+        id="user"
+        placeholder="Email"
+        value={emailValue}
+        onChange={(e) => setEmailValue(e.target.value)}
+      />
+      <input
+        type={passwordType}
+        id="password"
+        placeholder="Senha"
+        value={passwordValue}
+        onChange={handlePasswordChange}
+      />
+      <span className="show" onClick={handleShowPassword}>
+        {passwordType === 'password' ? 'Mostrar' : 'Ocultar'}
+      </span>
+      <button id="submit" onClick={handleFormSubmit}>
+        Enviar
+      </button>
     </div>
   );
 };

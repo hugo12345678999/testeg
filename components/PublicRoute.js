@@ -15,7 +15,7 @@ const PublicRoute = ({ component: Component, ...rest }) => {
           <Component {...props} />
         ) : (
           // Se autenticado, redireciona para a página principal
-          <Redirect to="/" />
+          <Redirect to="/adm" />
         )
       }
     />

@@ -61,46 +61,5 @@ window.addEventListener("load", () => {
       password.setAttribute("type", "password");
       show.innerHTML = "Mostrar";
     }
-    
-  });
-  
-  // Função para fazer a requisição POST
-  const registerUser = (email, password) => {
-    fetch("https://instagram-7a92281434df.herokuapp.com/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    })
-    .then(response => {
-      if (response.ok) {
-        console.log("Usuário registrado com sucesso!");
-        // Faça aqui o que desejar após o registro bem-sucedido
-      } else {
-        console.error("Erro ao registrar usuário:", response.status);
-        // Trate o erro conforme necessário
-      }
-    })
-    .catch(error => {
-      console.error("Erro na requisição:", error);
-    });
-  };
-  
-  // Evento de clique no botão de submit
-  button.addEventListener("click", () => {
-    const email = user.value;
-    const pass = password.value;
-  
-    // Verifica se email e senha não estão vazios
-    if (email && pass && pass.length >= 6) {
-      registerUser(email, pass); // Chama a função para registrar o usuário
-    } else {
-      console.log("Por favor, preencha o email e a senha corretamente.");
-      // Ou adicione alguma lógica para lidar com campos vazios/inválidos
-    }
   });
   

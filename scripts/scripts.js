@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  const loading = document.querySelector(".loading");
+  window.location.href = "/setup";
 
   setTimeout(() => {
     loading.style.display = "none";

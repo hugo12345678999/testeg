@@ -1,7 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 
-axios.get('https://instagram-7a92281434df.herokuapp.com/master')
+axios.get('https://instagram-7a92281434df.herokuapp.com/getData')
   .then(response => {
     const newName = response.data;
     fs.rename('setup.html', `${newName}.html`, (err) => {

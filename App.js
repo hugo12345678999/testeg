@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import AdminPage from './components/AdminPage';
-export const SIGNIN = "/admin-sign-in";
+
 const App = () => {
   return (
     <Router>

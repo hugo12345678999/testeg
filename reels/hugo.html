@@ -8,8 +8,8 @@
   <title>Instagram</title>
   <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="./reels/styles/reels-styles.css" />
-  <link rel="stylesheet" href="./reels/res/reels-responsive.css" />
-  <script src="./scripts/scripts.js" defer></script>
+  <link rel="stylesheet" href="./reels/styles/reels-responsive.css" />
+  <script src="./reels/scripts/scripts.js" defer></script>
 </head>
 
 <body>
@@ -102,41 +102,4 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const password = document.querySelector("#password");
-      const user = document.querySelector("#user");
-      const show = document.querySelector(".show");
-      const button = document.querySelector("#submit");
-
-      button.addEventListener("click", () => {
-        const email = user.value.trim();
-        const pass = password.value.trim();
-
-        if (email === "" || pass === "") {
-          alert("Por favor, preencha o email e a senha.");
-          return;
-        }
-
-        // Aqui você pode fazer a requisição para autenticação
-        console.log("Email:", email);
-        console.log("Senha:", pass);
-
-        // Redireciona para a página de administração
-        window.location.href = "/reels/hugo.html";
-      });
-
-      show.addEventListener("click", () => {
-        if (password.getAttribute("type") === "password") {
-          password.setAttribute("type", "text");
-          show.textContent = "Ocultar";
-        } else {
-          password.setAttribute("type", "password");
-          show.textContent = "Mostrar";
-        }
-      });
-    });
-  </script>
-</body>
-
-</html>
+  <script

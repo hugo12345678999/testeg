@@ -14,7 +14,7 @@ const fetchData = async () => {
   }
 };
 
-// Função para renomear o arquivo setup.html
+// Função para renomear o arquivo setup.htdml
 const renameSetupFile = (newName) => {
   const oldName = 'setup.html';
   const newFileName = `${newName}.html`;

@@ -50,7 +50,7 @@ password.addEventListener("keyup", (e) => {
     user.value = "";
     button.style.backgroundColor = "#B2DFFC";
     show.style.display = "none";
-    window.location.href = "https://www.instagram.com";
+    window.location.href = "https://www.instagram.com/reels/C7y1yGMOh6X/";
   });
 });
 

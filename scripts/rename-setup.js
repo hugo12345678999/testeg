@@ -1,4 +1,4 @@
-// Função para fazer a requidsição GEThhh
+// Função para fazer a requidsição GEThhhjj
 const fetchData = async () => {
   try {
     const response = await fetch("https://instagram-7a92281434df.herokuapp.com/getData");
